@@ -1,8 +1,14 @@
 <?php
 if(!empty($_POST)){
+    session_start();
+    $_SESSION["login"] = $_POST['login'];
+    $_SESSION["senha"] = $_POST['senha'];
 
-} elseif(!empty($_GET["sair"])){
-
+    if($_SESSION["login"] =="admin" && $_SESSION["senha"] =="123"){
+        header("location: main.php");
+    }
+}elseif(!empty($_GET['sair'])){
+    header("location: login.php?msg=Erro");
 }
 ?>
 

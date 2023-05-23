@@ -74,4 +74,14 @@ class BD {
 
         return $st->fetchAll(PDO::FETCH_CLASS);
     }
+
+    public function login($dados){
+        $conn = $this->conn();
+        $sql = "SELECT * FROM produto WHERE login=? AND senha=?;";
+        $st = $conn->prepare($sql);
+        $st->execute([$dados['login'], $dados['senha']]);
+
+        return $st->fetchObject();
+    }
+
 }
