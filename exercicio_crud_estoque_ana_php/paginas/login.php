@@ -1,13 +1,27 @@
 <?php
+
+include "../BD.class.php";
+
+$conn= new BD();
+
 if(!empty($_POST)){
     session_start();
-    $_SESSION["login"] = $_POST['login'];
-    $_SESSION["senha"] = $_POST['senha'];
 
-    if($_SESSION["login"] =="admin" && $_SESSION["senha"] =="123"){
+    $usuario= $conn-> login($_POST);
+
+    if(
+        $_POST["login"] == $usuario->login &&
+        $_POST["senha"] == $usuario->senha
+
+    ){
+        $_SESSION["login"] = $_POST['login'];
+        $_SESSION["senha"] = $_POST['senha'];
+
         header("location: main.php");
     }
-}elseif(!empty($_GET['sair'])){
+
+} else{
+
     header("location: login.php?msg=Erro");
 }
 ?>
